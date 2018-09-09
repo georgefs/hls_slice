@@ -2,3 +2,14 @@ simple hls live slince to mp4
 ---
 
 恩.. 其實就是用於即時切 hls streaming 的小工具..
+
+
+
+start 
+---
+```
+python run.py
+```
+
+open browser(chrome) 
+http://localhost:8080
