@@ -1,0 +1,27 @@
+        
+        <head>
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+        </head>
+
+<body>
+            <div id="player"></div>
+            <script>
+var player = new Clappr.Player({source: "{{m3u8_url}}", parentId: "#player"});
+                 function set_start(){
+                   elem = document.getElementById('start');
+                   elem.value = player.getCurrentTime();
+                 }
+
+                 function set_end(){
+                   elem = document.getElementById('end');
+                   elem.value = player.getCurrentTime();
+                 }
+            </script>
+            <a href="#" onclick="set_start()">start</a>
+            <a href="#" onclick="set_end()">end</a>
+            <form method='post' action='/slince' target="_blank">
+               <input type='text' name='start' id='start' value=''>
+               <input type='text' name='end' id='end' value=''>
+               <input type='submit' value='submit'>
+            </form>
+        </body>
