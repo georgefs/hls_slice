@@ -16,7 +16,7 @@ STATIC_PATH = os.path.join(BASE_DIR, 'static')
 log = '-loglevel panic'
 
 def to_static_url(path):
-    global m3u8_path, BASE_DIR
+    global BASE_DIR
     static_url = os.path.join('/static', os.path.relpath(path, STATIC_PATH))
     return static_url
 
