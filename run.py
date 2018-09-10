@@ -75,6 +75,17 @@ def wait(pid):
     else:
         return '<meta http-equiv="refresh" content="3" /> code:{}'.format(code)
 
+@route('/stop', method='POST')
+def stop():
+    global streaming_downloader 
+    try:
+        streaming_downloader.kill()
+    except:
+        pass
+    finally:
+        streaming_downloader = None
+        return redirect('/')
+
 
 @route('/static/<path:path>')
 def static(path):
