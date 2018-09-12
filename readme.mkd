@@ -20,7 +20,10 @@ http://localhost:8080
 主要是透過 bottle + subprocess 控制 ffmpeg 來實現
 bottle 在抽象上就是一個single thread 的 web server, 在這案例上特別適合
 主要就是負責即時處理 hls 直撥串流的小工具.. 
-又由於是single thread 的狀況下, bottle 基本上只是取代了介面的部分, 後面商務邏輯都用subprocess 來實現
+又由於是single thread 的狀況下, bottle 基本上只是取代了介面的部分. 
+透過web ui 來觸發server 執行shell 指令和管理“
+如果在multi thread 需求面向再多輸入輸出的狀況下, 要處理就不適合這樣
+但是在只需要處理一個直撥串流的情況下就很適合
 ```
 bottle server --> streaming copy process
               |-> realtime covert to mp4 process 
