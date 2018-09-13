@@ -1,4 +1,4 @@
-from bottle import route, run, template, request, redirect, static_file
+from bottle import route, run, template, request, redirect, static_file, default_app
 import subprocess
 import tempfile
 import os
@@ -91,5 +91,8 @@ def stop():
 def static(path):
     return static_file(path, root=STATIC_PATH)
     
-run(host='localhost', port=8080)
+
+app = default_app()
+if __name__ == '__main__':
+    run(host='localhost', port=8080)
 
