@@ -36,7 +36,7 @@ def start():
     m3u8_url = request.forms.get('m3u8_url')
     temp_dir = tempfile.mkdtemp(dir=STATIC_PATH)
     m3u8_path = os.path.join(temp_dir, 'index.m3u8')
-    cmd = 'ffmpeg -loglevel panic -i {} -start_number 0 -hls_time 10 -hls_list_size 0 -vcodec copy -f hls {}'.format(m3u8_url, m3u8_path).split()
+    cmd = 'ffmpeg -loglevel panic -i {} -start_number 0 -hls_time 2 -hls_list_size 0 -g 1 -vcodec copy -f hls {}'.format(m3u8_url, m3u8_path).split()
     streaming_downloader = subprocess.Popen(cmd, stdout=subprocess.PIPE)
     time.sleep(5)
     return redirect('main')
