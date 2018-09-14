@@ -3,6 +3,9 @@ import subprocess
 import tempfile
 import os
 import hls
+import time
+from bottle import error
+
 global streaming_downloader
 global temp_dir
 global m3u8_path
@@ -35,6 +38,7 @@ def start():
     m3u8_path = os.path.join(temp_dir, 'index.m3u8')
     cmd = 'ffmpeg -loglevel panic -i {} -start_number 0 -hls_time 10 -hls_list_size 0 -vcodec copy -f hls {}'.format(m3u8_url, m3u8_path).split()
     streaming_downloader = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+    time.sleep(5)
     return redirect('main')
 
 @route('/main')
@@ -42,13 +46,13 @@ def main():
     return template(open('templates/main.html').read(), m3u8_url=to_static_url(m3u8_path))
 
 
-@route('/slince', method='POST')
-def slince():
+@route('/slice', method='POST')
+def slice():
     global pool
-    start = float(request.forms.get('start'))
-    end = float(request.forms.get('end'))
+    start = int(request.forms.get('start'))
+    end = int(request.forms.get('end'))
 
-    m3u8 = hls.M3U8.from_path(m3u8_path).slince(start, end)
+    m3u8 = hls.M3U8.from_path(m3u8_path).slice_idx(start, end)
     name = os.path.join(temp_dir, '{}_{}'.format(start, end))
     m3u8_dir = name + '.m3u8'
     mp4_dir = name + '.mp4'
@@ -91,6 +95,10 @@ def stop():
 def static(path):
     return static_file(path, root=STATIC_PATH)
     
+
+@error(404)
+def error404():
+    return redirect('/')
 
 app = default_app()
 if __name__ == '__main__':

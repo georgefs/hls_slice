@@ -6,20 +6,32 @@
 <body>
             <div id="player"></div>
             <script>
-var player = new Clappr.Player({source: "{{m3u8_url}}", parentId: "#player"});
+                 var player = new Clappr.Player({source: "{{m3u8_url}}", parentId: "#player"});
+                 var frag = "";
+                 player.play();
+
+				 player.core.getCurrentPlayback()._hls.on('hlsFragChanged', function(e, data) {
+				     frag = data['frag']._url.match(/index(\d+).ts/)[1];
+                     elem = document.getElementById('curr');
+                         elem.innerText = frag;
+				 });
+
+                 var offset = 0;
                  function set_start(){
                    elem = document.getElementById('start');
-                   elem.value = player.getCurrentTime();
+                   elem.value = frag;
                  }
 
                  function set_end(){
                    elem = document.getElementById('end');
-                   elem.value = player.getCurrentTime();
+                   elem.value = frag;
                  }
+
             </script>
             <a href="#" onclick="set_start()">start</a>
             <a href="#" onclick="set_end()">end</a>
-            <form method='post' action='/slince' target="_blank">
+            <div id="curr"></div>
+            <form method='post' action='/slice' target="_blank">
                <input type='text' name='start' id='start' value=''>
                <input type='text' name='end' id='end' value=''>
                <input type='submit' value='submit'>

@@ -25,6 +25,12 @@ class M3U8:
         scenes = scenes
         return M3U8(headers, scenes, self.base_url)
 
+    def slice_idx(self, st, ed):
+        # slice hls
+        headers = self.headers
+        scenes = self.scenes[st: ed+1]
+        return M3U8(headers, scenes, self.base_url)
+
     def select(self, idxs):
         idx = 0
         tmp = {}
