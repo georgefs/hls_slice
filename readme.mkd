@@ -5,10 +5,14 @@ simple hls live slince to mp4
 
 
 
-start 
+install 
 ---
 ```
-python run.py
+docker build . -t live_cuts
+```
+
+```
+docker run --rm -p 8080:8080 live_cuts
 ```
 
 open browser(chrome) 
