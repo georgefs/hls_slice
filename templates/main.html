@@ -1,5 +1,6 @@
         
         <head>
+            <meta charset="UTF-8">
             <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
             <script>window.clappr = Clappr;</script>
             <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clappr-playback-rate-plugin@0.4.0/lib/clappr-playback-rate-plugin.min.js"></script>
@@ -35,11 +36,13 @@
             <a href="#" onclick="set_end()">end</a>
             <div id="curr"></div>
             <form method='post' action='/slice' target="_blank">
-               <input type='text' name='start' id='start' value=''>
-               <input type='text' name='end' id='end' value=''>
+               <input type='text' name='start' id='start' value='' placeholder="start">
+               <input type='text' name='end' id='end' value='' placeholder="end">
+               <input type='text' name='msg' value='' placeholder="msg">
                <input type='submit' value='submit'>
             </form>
             <form method='post' action='/stop'>
                <input type='submit' value='stop'>
             </form>
+            <a href="/list" target="_blank">list</a>
         </body>
